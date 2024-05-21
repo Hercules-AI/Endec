@@ -1,13 +1,10 @@
 from typing import Dict, Optional
 from enum import Enum
-# from beanie import Document
-# from odmantic import ObjectId
+from pydantic import BaseModel
 
 
-class Decoder():
+class Decoder(BaseModel):
     answer: str
     compressed_file_path:str
     original_size:int
     decoded_size:int
-    # class Settings:
-    #     name = "decoder"
