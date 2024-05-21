@@ -45,7 +45,7 @@ class CreateEncodedFileService(BaseService):
         # Save the details in the database
         compressed = Encoder(
             answer=compressed_file_content,
-            path=compressed_file_path
+            path=compressed_file_path,
             original_size=original_file_size,
             encoded_size=compressed_file_size
         )
