@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      # Use root/example as user/password credentials
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017" # Expose MongoDB on port 27017 on the host
+    volumes:
+      - mongodb_data:/data/db # Persist MongoDB data to named volume
+    restart: always
+
+volumes:
+  mongodb_data:
+    name: mongodb_data
