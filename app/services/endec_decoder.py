@@ -17,7 +17,7 @@ class CreateDecodedFileService(BaseService):
         
         # Define the directory and command
         directory = "/home/heliya/endec/ts_zip-2024-03-02"
-        command = f"sudo ./ts_zip --cuda d {file_path} {decompressed_file_path}"
+        command = f"sudo ./ts_zip --cuda d '{file_path}' '{decompressed_file_path}'"
         # Get the original (compressed) file size
         original_file_size = os.path.getsize(file_path)
 
@@ -36,7 +36,7 @@ class CreateDecodedFileService(BaseService):
 
         # Save the details in the database
         decompressed = Decoder(
-            answer=decompressed_file_content,
+            answer=str(decompressed_file_content),
             decompressed_file_path = decompressed_file_path,
             original_size=original_file_size,
             encoded_size=decompressed_file_size
