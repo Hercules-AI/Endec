@@ -11,7 +11,7 @@ def start():
         host=settings.app_host,
         port=settings.app_port,
         workers=worker_count,
-        reload=settings.app_env == "dev",
+        # reload=settings.app_env == "dev",
     )
 
 
