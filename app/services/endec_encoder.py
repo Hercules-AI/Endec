@@ -42,10 +42,11 @@ class CreateEncodedFileService(BaseService):
         # Save the details in the database
         compressed = Encoder(
             answer=str(compressed_file_content),
-            compressed_text_path=str(compressed_file_path),
             original_size=original_file_size,
             encoded_size=compressed_file_size
         )
+        os.remove(file_path)  # Delete the original file
+        os.remove(compressed_file_path)  # Delete the decompressed file
         # Return the result
         return compressed.dict()
 

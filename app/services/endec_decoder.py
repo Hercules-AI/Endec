@@ -7,11 +7,18 @@ from app.models.endec_decoder import Decoder
 from app.services.base import BaseService
 
 class CreateDecodedFileService(BaseService):
-    async def execute(self, compressed_text_path: str) -> dict:
-        file_path = compressed_text_path
+    async def save_text_file(self, file: UploadFile = File(...)) -> str:
+        file_path = os.path.join(os.getcwd(), file.filename.strip())
 
+        # Save the file asynchronously
+        async with aiofiles.open(file_path, "wb") as out_file:
+            content = await file.read()  # Read the file content
+            await out_file.write(content)  # Write to the file
+        return file_path
+    async def execute(self, file: UploadFile) -> dict:
+        file_path = await self.save_text_file(file)
         # Extract the base name and create the decompressed file name
-        base_name = os.path.splitext(os.path.basename(file_path))[0]
+        base_name = os.path.splitext(file.filename)[0]
         decompressed_file_name = f"{base_name}_decompressed.txt"
         decompressed_file_path = os.path.join(os.getcwd(), decompressed_file_name)
         
@@ -37,10 +44,11 @@ class CreateDecodedFileService(BaseService):
         # Save the details in the database
         decompressed = Decoder(
             answer=str(decompressed_file_content),
-            decompressed_file_path = decompressed_file_path,
             original_size=original_file_size,
             decoded_size=decompressed_file_size
         )
+        os.remove(file_path)  # Delete the original file
+        os.remove(decompressed_file_path)  # Delete the decompressed file
         # Return the result
         return decompressed.dict()
 
