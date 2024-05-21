@@ -6,12 +6,12 @@ from app.endpoints.endec_encoder import router as encoder_router
 from app.endpoints.endec_decoder import router as decoder_router
 
 
-from app.db import connect_database
+# from app.db import connect_database
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await connect_database()
+    # await connect_database()
     yield
 
 
