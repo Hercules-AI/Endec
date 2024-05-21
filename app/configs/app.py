@@ -7,10 +7,9 @@ load_dotenv()
 
 
 class AppSettings(mongodb.Settings):
-    pass
-    # app_env: str
-    # app_host: str = "0.0.0.0"
-    # app_port: int = 8087
+    app_env: str
+    app_host: str = "0.0.0.0"
+    app_port: int = 8000
     # secret_key: str
     # mq_url: str
     # queue_name: str
