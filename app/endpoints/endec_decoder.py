@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/fbis/decoder")
-async def create_query(request: Request,compressed_file_path: str = Body(...)):
+async def create_query(request: Request,compressed_file_path: str = Body(..., embed=True)):
     service = CreateDecodedFileService()
     created_query = await service.execute(compressed_file_path)
     return created_query
