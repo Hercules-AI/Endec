@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 
-class AppSettings(mongodb.Settings):
+class AppSettings():
     app_env: str
     app_host: str = "0.0.0.0"
     app_port: int = 8000
