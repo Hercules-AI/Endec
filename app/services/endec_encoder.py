@@ -17,6 +17,7 @@ class CreateEncodedFileService(BaseService):
         return file_path
 
     async def execute(self, file: UploadFile) -> dict:
+        print(file)
         """Process the uploaded file, save it, and run the specified command."""
         file_path = await self.save_text_file(file)
 
@@ -47,7 +48,7 @@ class CreateEncodedFileService(BaseService):
 
         # Save the details in the database
         compressed = Encoder(
-            answer=str(compressed_file_content),
+            answer=str(compressed_file_content,
             compressed_text_path=compressed_file_path,
             original_size=original_file_size,
             encoded_size=compressed_file_size
