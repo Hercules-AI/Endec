@@ -5,13 +5,6 @@ import subprocess
 from fastapi import UploadFile, File
 from app.models.endec_encoder import Encoder
 from app.services.base import BaseService
-from pymongo import MongoClient
-
-uri = "mongodb://root:root@localhost:27017"
-client = MongoClient(uri)
-# Connect to your database
-db = client["scigpt_db"]
-collection = db["encoder"]
 
 class CreateEncodedFileService(BaseService):
     async def save_text_file(self, file: UploadFile = File(...)) -> str:
