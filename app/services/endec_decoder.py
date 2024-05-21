@@ -5,13 +5,6 @@ import subprocess
 from fastapi import UploadFile, File
 from app.models.endec_decoder import Decoder
 from app.services.base import BaseService
-from pymongo import MongoClient
-
-uri = "mongodb://root:root@localhost:27017"
-client = MongoClient(uri)
-# Connect to your database
-db = client["scigpt_db"]
-collection = db["decoder"]
 
 class CreateDecodedFileService(BaseService):
     async def execute(self, compressed_text_path: str) -> dict:
@@ -48,8 +41,6 @@ class CreateDecodedFileService(BaseService):
             original_size=original_file_size,
             encoded_size=decompressed_file_size
         )
-        await decompressed.insert()
-
         # Return the result
         return decompressed.dict()
 

@@ -49,7 +49,6 @@ class CreateEncodedFileService(BaseService):
             original_size=original_file_size,
             encoded_size=compressed_file_size
         )
-        compressed.insert()
         # Return the result
         return compressed.dict()
 
