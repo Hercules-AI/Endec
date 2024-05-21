@@ -7,7 +7,7 @@ from odmantic import ObjectId
 class Decoder(Document):
     answer: str
     compressed_file_path:str
-    original_size:str
-    decoded_size:str
+    original_size:int
+    decoded_size:int
     class Settings:
         name = "decoder"
