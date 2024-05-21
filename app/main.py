@@ -1,6 +1,6 @@
 import uvicorn
 
-from app.configs.app import settings
+# from app.configs.app import settings
 
 
 def start():
@@ -8,10 +8,10 @@ def start():
     print("Worker count: ", worker_count)
     uvicorn.run(
         "app.api:app",
-        host=settings.app_host,
-        port=settings.app_port,
-        workers=worker_count,
-        reload=settings.app_env == "dev",
+        # host=settings.app_host,
+        # port=settings.app_port,
+        # workers=worker_count,
+        # reload=settings.app_env == "dev",
     )
 
 
