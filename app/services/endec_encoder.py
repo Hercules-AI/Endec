@@ -17,6 +17,7 @@ class CreateEncodedFileService(BaseService):
         return file_path
 
     async def execute(self, file: UploadFile) -> dict:
+        print(file)
         """Process the uploaded file, save it, and run the specified command."""
         file_path = await self.save_text_file(file)
 
