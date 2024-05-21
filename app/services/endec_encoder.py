@@ -23,25 +23,18 @@ class CreateEncodedFileService(BaseService):
 
         # Extract the base name and create the compressed file name
         base_name = os.path.splitext(file.filename)[0]
-        print("base name:",base_name)
         compressed_file_name = f"{base_name}_compressed.txt"
-        print("compressed_file_name:",compressed_file_name)
         compressed_file_path = os.path.join(os.getcwd(), compressed_file_name)
-        print("compressed_file_path:",compressed_file_path)
 
         # Define the directory and command
         directory = "/home/heliya/endec/ts_zip-2024-03-02"
         command = f"sudo ./ts_zip --cuda c '{file_path}' '{compressed_file_path}'"
-        print("command executed")
         # Get the original file size
         original_file_size = os.path.getsize(file_path)
-        print("original_file_size:",original_file_size)
         # Navigate to the directory and run the command
         result = await self.run_command(directory, command)
-        print("result executed")
         # Get the compressed file size
         compressed_file_size = os.path.getsize(compressed_file_path)
-        print("compressed_file_size",compressed_file_size)
         # Read the compressed file content
         async with aiofiles.open(compressed_file_path, "r") as compressed_file:
             compressed_file_content = compressed_file.read()
