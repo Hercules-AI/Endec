@@ -22,8 +22,11 @@ class CreateEncodedFileService(BaseService):
 
         # Extract the base name and create the compressed file name
         base_name = os.path.splitext(file.filename)[0]
+        print("base name:",base_name)
         compressed_file_name = f"{base_name}_compressed.txt"
+        print("compressed_file_name:",compressed_file_name)
         compressed_file_path = os.path.join(os.getcwd(), compressed_file_name)
+        print("compressed_file_path:",compressed_file_path)
 
         # Define the directory and command
         directory = "/home/heliya/endec/ts_zip-2024-03-02"
@@ -44,7 +47,7 @@ class CreateEncodedFileService(BaseService):
 
         # Save the details in the database
         compressed = Encoder(
-            answer=compressed_file_content,
+            answer=str(compressed_file_content),
             compressed_text_path=compressed_file_path,
             original_size=original_file_size,
             encoded_size=compressed_file_size
