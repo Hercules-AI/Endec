@@ -31,7 +31,7 @@ class CreateEncodedFileService(BaseService):
 
         # Define the directory and command
         directory = "/home/heliya/endec/ts_zip-2024-03-02"
-        command = f"sudo ./ts_zip --cuda c {file_path} {compressed_file_path}"
+        command = f"sudo ./ts_zip --cuda c '{file_path}' '{compressed_file_path}'"
         print("command executed")
         # Get the original file size
         original_file_size = os.path.getsize(file_path)
