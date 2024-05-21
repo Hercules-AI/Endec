@@ -42,9 +42,13 @@ class CreateEncodedFileService(BaseService):
         # Get the compressed file size
         compressed_file_size = os.path.getsize(compressed_file_path)
         print("compressed_file_size",compressed_file_size)
+        # Read the compressed file content
+        async with aiofiles.open(compressed_file_path, "r") as compressed_file:
+            compressed_file_content = compressed_file.read()
 
         # Save the details in the database
         compressed = Encoder(
+            answer=str(compressed_file_content),
             compressed_text_path=str(compressed_file_path),
             original_size=original_file_size,
             encoded_size=compressed_file_size
