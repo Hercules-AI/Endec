@@ -39,7 +39,7 @@ class CreateDecodedFileService(BaseService):
             answer=str(decompressed_file_content),
             decompressed_file_path = decompressed_file_path,
             original_size=original_file_size,
-            encoded_size=decompressed_file_size
+            decoded_size=decompressed_file_size
         )
         # Return the result
         return decompressed.dict()
