@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class Encoder(BaseModel):
-    answer: str
+    answer: bytes
     compressed_text_path:str
     original_size:int
     encoded_size:int
