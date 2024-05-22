@@ -1,22 +1,13 @@
-from pydantic import BaseModel, Field
-from typing import Optional
+from pydantic import BaseModel, validator
 import base64
-
 class Encoder(BaseModel):
     answer: str
     compressed_text_path: str
     original_size: int
     encoded_size: int
-    raw_data: Optional[bytes] = Field(None, exclude=True)  # Hold the raw binary data, exclude from responses
 
-    @property
-    def answer(self) -> str:
-        """Encode the raw binary data as base64 when accessing the answer field."""
-        if self.raw_data is not None:
-            return base64.b64encode(self.raw_data).decode('utf-8')
-        return ""
-
-    @answer.setter
-    def answer(self, value: bytes):
-        """Store raw data when setting the answer field."""
-        self.raw_data = value
+    @validator('answer', pre=True, always=True)
+    def convert_bytes_to_base64(cls, v):
+        if isinstance(v, bytes):
+            return base64.b64encode(v).decode('utf-8')
+        return v
