@@ -26,16 +26,18 @@ class CreateEncodedFileService(BaseService):
         await self.run_command(directory, command)
         compressed_file_size = os.path.getsize(compressed_file_path)
 
-        async with aiofiles.open(compressed_file_path, "r") as compressed_file:
-            compressed_file_content = await compressed_file.read()  # Ensure you use await here
+        # Open the file in binary mode ('rb' read binary)
+        async with aiofiles.open(compressed_file_path, "rb") as compressed_file:
+            compressed_file_content = await compressed_file.read()
 
+        # Encoded answer must be handled as bytes; do not convert to string if unnecessary
         compressed = Encoder(
-            answer=compressed_file_content,
+            answer=compressed_file_content,  # This should be handled as bytes, or encoded appropriately
             original_size=original_file_size,
             compressed_text_path=compressed_file_path,
             encoded_size=compressed_file_size
         )
-        os.remove(file_path)
+        os.remove(file_path)  # Clean up the original file
         return compressed.dict()
 
     async def run_command(self, directory: str, command: str) -> str:
@@ -50,4 +52,3 @@ class CreateEncodedFileService(BaseService):
             raise Exception(f"Command failed with error: {stderr.decode()}")
 
         return stdout.decode()
-
