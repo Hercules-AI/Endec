@@ -45,10 +45,11 @@ class CreateDecodedFileService(BaseService):
         decompressed = Decoder(
             answer=str(decompressed_file_content),
             original_size=original_file_size,
+            decompressed_file_path=decompressed_file_path,
             decoded_size=decompressed_file_size
         )
-        os.remove(file_path)  # Delete the original file
-        os.remove(decompressed_file_path)  # Delete the decompressed file
+        os.remove(file_path)
+
         # Return the result
         return decompressed.dict()
 

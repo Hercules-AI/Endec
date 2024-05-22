@@ -17,7 +17,6 @@ class CreateEncodedFileService(BaseService):
         return file_path
 
     async def execute(self, file: UploadFile) -> dict:
-        print(file)
         """Process the uploaded file, save it, and run the specified command."""
         file_path = await self.save_text_file(file)
 
@@ -37,16 +36,16 @@ class CreateEncodedFileService(BaseService):
         compressed_file_size = os.path.getsize(compressed_file_path)
         # Read the compressed file content
         async with aiofiles.open(compressed_file_path, "r") as compressed_file:
-            compressed_file_content = compressed_file.read()
+            compressed_file_content = await compressed_file.read()
 
         # Save the details in the database
         compressed = Encoder(
             answer=str(compressed_file_content),
             original_size=original_file_size,
+            compressed_text_path=compressed_file_path,
             encoded_size=compressed_file_size
         )
-        os.remove(file_path)  # Delete the original file
-        os.remove(compressed_file_path)  # Delete the decompressed file
+        os.remove(file_path)
         # Return the result
         return compressed.dict()
 
